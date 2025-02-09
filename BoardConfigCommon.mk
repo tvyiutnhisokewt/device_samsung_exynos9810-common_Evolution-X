@@ -52,6 +52,11 @@ BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_KERNEL_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET)
 
+## Camera
+$(call soong_config_set,samsungCameraVars,usage_64bit,true)
+
+-include vendor/lineage/config/BoardConfigReservedSize.mk
+
 ## Filesystem
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -60,6 +65,9 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 ## Fingerprint
 TARGET_SEC_FP_HAS_FINGERPRINT_GESTURES := true
+
+## Graphics
+TARGET_USES_VULKAN := true
 
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := Image
@@ -79,6 +87,10 @@ TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_TOGGLE := true
 TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_DEADLINE := false
 
 # Manifest
+# HIDL
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+	hardware/samsung/vintf/samsung_framework_compatibility_matrix.xml \
+    vendor/lineage/config/device_framework_matrix.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 
@@ -89,6 +101,8 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 68149248
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4561305600
 BOARD_VENDORIMAGE_PARTITION_SIZE := 681574400
+
+BOARD_USES_METADATA_PARTITION := true
 
 BOARD_ROOT_EXTRA_FOLDERS := efs
 
@@ -108,7 +122,7 @@ TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
 # Recovery
 BOARD_HAS_DOWNLOAD_MODE := true
 BOARD_USES_FULL_RECOVERY_IMAGE := true
-TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
+TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
 TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/configs/init/fstab.samsungexynos9810
 
 ## Releasetools

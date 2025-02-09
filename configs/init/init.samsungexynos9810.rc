@@ -825,6 +825,8 @@ on boot
     write /dev/cpuset/system-background/cpus 0-2
     write /dev/cpuset/restricted/cpus 0-2
 
+    setprop vendor.powerhal.init 1
+
 # FactoryApp(SensorHub)
     chown system system /efs/FactoryApp/version
     chown system system /efs/FactoryApp/predefine0
@@ -1062,6 +1064,7 @@ service prepare_param /system/bin/prepare_param.sh /dev/block/platform/11120000.
 
 # Set watchdog timer to 40 seconds and pet it every 10 seconds to get a 30 second margin
 service watchdogd  /system/bin/watchdogd 10 30
+    user root
     class core
     seclabel u:r:watchdogd:s0
 

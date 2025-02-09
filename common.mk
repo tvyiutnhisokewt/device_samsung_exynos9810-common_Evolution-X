@@ -65,7 +65,7 @@ TARGET_BOOTANIMATION_HALF_RES := true
 
 # Camera
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.5-service
+    android.hardware.camera.provider-service.samsung
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -115,14 +115,8 @@ PRODUCT_PACKAGES += \
 
 # GNSS
 PRODUCT_PACKAGES += \
+    android.frameworks.sensorservice@1.0.vendor:64 \
     android.hardware.gnss@2.0.vendor
-
-# HIDL
-PRODUCT_PACKAGES += \
-    libhidltransport \
-    libhidltransport.vendor \
-    libhwbinder \
-    libhwbinder.vendor
 
 # init
 PRODUCT_COPY_FILES += \
@@ -147,6 +141,11 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service \
     android.hardware.keymaster@3.0-impl
 
+PRODUCT_PACKAGES += \
+    libcrypto-tm \
+    libshim_crypto:64 \
+    libssl-tm
+
 # Light
 PRODUCT_PACKAGES += \
     android.hardware.light-service.samsung
@@ -163,11 +162,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libepicoperator
 
+# OpenCL
+PRODUCT_PACKAGES += \
+    libOpenCL_symlink32 \
+    libOpenCL_symlink64 \
+    libOpenCL.1_symlink32 \
+    libOpenCL.1_symlink64 \
+    libOpenCL.1.1_symlink32 \
+    libOpenCL.1.1_symlink64
+
 # Media
 PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+    $(COMMON_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 
 # Memtrack
 PRODUCT_PACKAGES += \
@@ -228,7 +234,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.app_widgets.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.app_widgets.xml \
-    frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml \
     frameworks/native/data/etc/android.software.ipsec_tunnels.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnels.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml \
@@ -242,7 +247,7 @@ PRODUCT_COPY_FILES += \
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0.vendor \
-    android.hardware.power-service.samsung-libperfmgr
+    android.hardware.power-service.pixel-libperfmgr
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json \
@@ -289,12 +294,12 @@ PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
-    hardware/samsung \
-    hardware/samsung/aidl/power-libperfmgr
+    hardware/samsung
 
 # Thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.samsung
+    android.hardware.thermal-service.pixel \
+    thermal_symlinks
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/thermal/thermal_info_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
@@ -302,6 +307,10 @@ PRODUCT_COPY_FILES += \
 # Touch HAL
 PRODUCT_PACKAGES += \
     vendor.lineage.touch@1.0-service.samsung
+
+# Update
+AB_OTA_UPDATER := false
+PRODUCT_SOONG_NAMESPACES += bootable/deprecated-ota
 
 # USB
 PRODUCT_PACKAGES += \
@@ -315,14 +324,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.vibrator-service.samsung
 
-# VNDK
-PRODUCT_PACKAGES += \
-    libutils-v32
-
-
 # Wi-Fi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
+    android.hardware.wifi-service \
     hostapd \
     WifiOverlay \
     wpa_supplicant \

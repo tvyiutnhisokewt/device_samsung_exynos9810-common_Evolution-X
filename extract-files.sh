@@ -63,11 +63,21 @@ function blob_fixup() {
         vendor/bin/hw/rild)
             "${PATCHELF}" --replace-needed libril.so libril-samsung.so "${2}"
             ;;
+        vendor/lib*/libsec-ril*.so)
+            "${PATCHELF}" --replace-needed libril.so libril-samsung.so "${2}"
+            xxd -p -c0 "${2}" | sed "s/600e40f9820c8052e10315aae30314aa/600e40f9820c8052e10315aa030080d2/g" | xxd -r -p > "${2}".patched
+            mv "${2}".patched "${2}"
+            ;;
         vendor/lib*/libsensorlistener.so)
             "${PATCHELF}" --add-needed libshim_sensorndkbridge.so "${2}"
             ;;
+        vendor/lib*/libskeymaster3device.so)
+            "${PATCHELF}" --replace-needed libcrypto.so libcrypto-tm.so "${2}"
+            "${PATCHELF}" --add-needed libssl-tm.so "${2}"
+            "${PATCHELF}" --add-needed libshim_crypto.so "${2}"
+            ;;
         vendor/lib*/libexynosdisplay.so|vendor/lib*/hw/hwcomposer.exynos9810.so|vendor/lib*/sensors.*.so)
-            "${PATCHELF}" --replace-needed libutils.so libutils-v32.so "${2}"
+            "${PATCHELF}" --replace-needed libutils.so libutils-tm.so "${2}"
             ;;
     esac
 }
