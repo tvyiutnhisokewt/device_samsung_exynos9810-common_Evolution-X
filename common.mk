@@ -144,7 +144,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcrypto-tm \
     libshim_crypto:64 \
-    libssl-tm
+    libssl-tm \
+    libutils-tm
 
 # Light
 PRODUCT_PACKAGES += \
@@ -161,15 +162,6 @@ PRODUCT_PACKAGES += \
 # OMX
 PRODUCT_PACKAGES += \
     libepicoperator
-
-# OpenCL
-PRODUCT_PACKAGES += \
-    libOpenCL_symlink32 \
-    libOpenCL_symlink64 \
-    libOpenCL.1_symlink32 \
-    libOpenCL.1_symlink64 \
-    libOpenCL.1.1_symlink32 \
-    libOpenCL.1.1_symlink64
 
 # Media
 PRODUCT_COPY_FILES += \
