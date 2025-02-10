@@ -8,8 +8,9 @@
         "target_path": "hardware/samsung"
     },
     {
-        "repository": "android_kernel_samsung_exynos9810",
+        "repository": "LineageOS/android_kernel_samsung_exynos9810",
         "target_path": "kernel/samsung/exynos9810",
-        "remote": "github-non-los"
+        "remote": "github-non-los",
+	"branch": "lineage-20"
     }
 ]
