@@ -14,15 +14,6 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := prebuilts/vndk/v32/arm64/arch-arm64-armv8-a/shared/vndk-sp
+LOCAL_PATH := $(call my-dir)
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := libutils-v32
-LOCAL_SRC_FILES := libutils.so
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_MODULE_TARGET_ARCH := arm64
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
-LOCAL_MODULE_TAGS := optional
-LOCAL_CHECK_ELF_FILES := false
-include $(BUILD_PREBUILT)
+include $(call all-makefiles-under,$(LOCAL_PATH))

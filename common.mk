@@ -65,7 +65,11 @@ TARGET_BOOTANIMATION_HALF_RES := true
 
 # Camera
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.5-service
+    android.hardware.camera.provider-service.samsung \
+    libprocessgroup.vendor
+
+PRODUCT_PACKAGES += \
+    libhwjpeg
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -80,7 +84,8 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl:64 \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.2-service \
-    android.hardware.graphics.mapper@2.0-impl-2.1
+    android.hardware.graphics.mapper@2.0-impl-2.1 \
+    libion-v34
 
 # Doze
 PRODUCT_PACKAGES += \
@@ -261,8 +266,12 @@ PRODUCT_COPY_FILES += \
 # RIL
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.4.vendor \
+    vendor.samsung.hardware.radio@2.0.vendor:64 \
+    vendor.samsung.hardware.radio@2.1.vendor:64 \
     android.hardware.radio.config@1.2.vendor \
-    android.hardware.radio.deprecated@1.0.vendor
+    android.hardware.radio.deprecated@1.0.vendor \
+    libnetutils.vendor:64 \
+    libsqlite.vendor:64
 
 PRODUCT_PACKAGES += \
     secril_config_svc
@@ -274,15 +283,21 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
     android.frameworks.schedulerservice@1.0.vendor:64 \
-    android.hardware.sensors@1.0-impl.samsung:64 \
-    android.hardware.sensors@1.0-service \
+    android.hardware.sensors-service.samsung-multihal \
+    android.frameworks.sensorservice@1.0 \
+    android.frameworks.sensorservice@1.0.vendor \
     libsensorndkbridge
 
 # Shims
 PRODUCT_PACKAGES += \
     libshim_audioparams \
     libshim_sensorndkbridge \
-    libdemangle.vendor
+    libdemangle.vendor \
+    libshim_ui
+
+# OMX
+PRODUCT_PACKAGES += \
+    libstagefright_softomx_plugin.vendor
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
